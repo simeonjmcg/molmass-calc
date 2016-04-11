@@ -1,0 +1,179 @@
+<!DOCTYPE html>
+<html>
+	<head>
+		<link rel="icon" type="image/x-icon" href="/icon.ico">
+		<meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
+		<title>Molar Mass Calculator</title>
+		<script src="https://ajax.googleapis.com/ajax/libs/jquery/2.2.0/jquery.min.js"></script>
+		<link rel="stylesheet" type="text/css" href="./style.css">
+	</head>
+	<body>
+		<p>
+			<input id="input" type="text" />
+		</p>
+		<noscript>This requires Javascript to be enabled to run properly. please enable Javascript and try again.</noscript> Include Equation: <input type="checkbox" id="show"></input><br>
+		<p>
+			Result: <span id="output">&nbsp;</span>
+		</p>
+
+		<table align="center" border="0" cellspacing="0" cellpadding="0">
+			<tr align="center">
+				<td><button class="element" value="H"><small>1</small><br>H</button></td>
+				<td colspan="2"></td>
+				<td><button class="element" value="7"><br>7</button></td>
+				<td><button class="element" value="8"><br>8</button></td>
+				<td><button class="element" value="9"><br>9</button></td>
+				<td colspan="25"></td>
+				<td><button class="element" value="He"><small>2</small><br>He</button></td>
+			</tr>
+			<tr align="center">
+				<td><button class="element" value="Li"><small>3</small><br>Li</button></td>
+				<td><button class="element" value="Be"><small>4</small><br>Be</button></td>
+				<td colspan="1">&nbsp;</td>
+				<td><button class="element" value="4"><br>4</button></td>
+				<td><button class="element" value="5"><br>5</button></td>
+				<td><button class="element" value="6"><br>6</button></td>
+				<td colspan="20"></td>
+				<td><button class="element" value="B"><small>5</small><br>B</button></td>
+				<td><button class="element" value="C"><small>6</small><br>C</button></td>
+				<td><button class="element" value="N"><small>7</small><br>N</button></td>
+				<td><button class="element" value="O"><small>8</small><br>O</button></td>
+				<td><button class="element" value="F"><small>9</small><br>F</button></td>
+				<td><button class="element" value="Ne"><small>10</small><br>Ne</button></td>
+			</tr>
+			<tr align="center">
+				<td><button class="element" value="Na"><small>11</small><br>Na</button></td>
+				<td><button class="element" value="Mg"><small>12</small><br>Mg</button></td>
+				<td colspan="1"></td>
+				<td><button class="element" value="1"><br>1</button></td>
+				<td><button class="element" value="2"><br>2</button></td>
+				<td><button class="element" value="3"><br>3</button></td>
+				<td colspan="20">
+				</td>
+				<td><button class="element" value="Al"><small>13</small><br>Al</button></td>
+				<td><button class="element" value="Si"><small>14</small><br>Si</button></td>
+				<td><button class="element" value="P"><small>15</small><br>P</button></td>
+				<td><button class="element" value="S"><small>16</small><br>S</button></td>
+				<td><button class="element" value="Cl"><small>17</small><br>Cl</button></td>
+				<td><button class="element" value="Ar"><small>18</small><br>Ar</button></td>
+			</tr>
+			<tr align="center">
+				<td><button class="element" value="K"><small>19</small><br>K</button></td>
+				<td><button class="element" value="Ca"><small>20</small><br>Ca</button></td>
+				<td colspan="1"></td>
+				<td><button class="element" value="0"><br>0</button></td>
+				<td colspan="2"><button class="element" value="" id="clear"><br>clear</button></td>
+				<td colspan="10"></td>
+				<td><button class="element" value="Sc"><small>21</small><br>Sc</button></td>
+				<td><button class="element" value="Ti"><small>22</small><br>Ti</button></td>
+				<td><button class="element" value="V"><small>23</small><br>V</button></td>
+				<td><button class="element" value="Cr"><small>24</small><br>Cr</button></td>
+				<td><button class="element" value="Mn"><small>25</small><br>Mn</button></td>
+				<td><button class="element" value="Fe"><small>26</small><br>Fe</button></td>
+				<td><button class="element" value="Co"><small>27</small><br>Co</button></td>
+				<td><button class="element" value="Ni"><small>28</small><br>Ni</button></td>
+				<td><button class="element" value="Cu"><small>29</small><br>Cu</button></td>
+				<td><button class="element" value="Zn"><small>30</small><br>Zn</button></td>
+				<td><button class="element" value="Ga"><small>31</small><br>Ga</button></td>
+				<td><button class="element" value="Ge"><small>32</small><br>Ge</button></td>
+				<td><button class="element" value="As"><small>33</small><br>As</button></td>
+				<td><button class="element" value="Se"><small>34</small><br>Se</button></td>
+				<td><button class="element" value="Br"><small>35</small><br>Br</button></td>
+				<td><button class="element" value="Kr"><small>36</small><br>Kr</button></td>
+			</tr>
+			<tr align="center">
+				<td><button class="element" value="Rb"><small>37</small><br>Rb</button></td>
+				<td><button class="element" value="Sr"><small>38</small><br>Sr</button></td>
+				<td colspan="14"></td>
+				<td><button class="element" value="Y"><small>39</small><br>Y</button></td>
+				<td><button class="element" value="Zr"><small>40</small><br>Zr</button></td>
+				<td><button class="element" value="Nb"><small>41</small><br>Nb</button></td>
+				<td><button class="element" value="Mo"><small>42</small><br>Mo</button></td>
+				<td><button class="element" value="Tc"><small>43</small><br>Tc</button></td>
+				<td><button class="element" value="Ru"><small>44</small><br>Ru</button></td>
+				<td><button class="element" value="Rh"><small>45</small><br>Rh</button></td>
+				<td><button class="element" value="Pd"><small>46</small><br>Pd</button></td>
+				<td><button class="element" value="Ag"><small>47</small><br>Ag</button></td>
+				<td><button class="element" value="Cd"><small>48</small><br>Cd</button></td>
+				<td><button class="element" value="In"><small>49</small><br>In</button></td>
+				<td><button class="element" value="Sn"><small>50</small><br>Sn</button></td>
+				<td><button class="element" value="Sb"><small>51</small><br>Sb</button></td>
+				<td><button class="element" value="Te"><small>52</small><br>Te</button></td>
+				<td><button class="element" value="I"><small>53</small><br>I</button></td>
+				<td><button class="element" value="Xe"><small>54</small><br>Xe</button></td>
+			</tr>
+			<tr align="center">
+				<td><button class="element" value="Cs"><small>55</small><br>Cs</button></td>
+				<td><button class="element" value="Ba"><small>56</small><br>Ba</button></td>
+				<td><button class="element" value="La"><small>57</small><br>La</button></td>
+				<td><button class="element" value="Ce"><small>58</small><br>Ce</button></td>
+				<td><button class="element" value="Pr"><small>59</small><br>Pr</button></td>
+				<td><button class="element" value="Nd"><small>60</small><br>Nd</button></td>
+				<td><button class="element" value="Pm"><small>61</small><br>Pm</button></td>
+				<td><button class="element" value="Sm"><small>62</small><br>Sm</button></td>
+				<td><button class="element" value="Eu"><small>63</small><br>Eu</button></td>
+				<td><button class="element" value="Gd"><small>64</small><br>Gd</button></td>
+				<td><button class="element" value="Tb"><small>65</small><br>Tb</button></td>
+				<td><button class="element" value="Dy"><small>66</small><br>Dy</button></td>
+				<td><button class="element" value="Ho"><small>67</small><br>Ho</button></td>
+				<td><button class="element" value="Er"><small>68</small><br>Er</button></td>
+				<td><button class="element" value="Tm"><small>69</small><br>Tm</button></td>
+				<td><button class="element" value="Yb"><small>70</small><br>Yb</button></td>
+				<td><button class="element" value="Lu"><small>71</small><br>Lu</button></td>
+				<td><button class="element" value="Hf"><small>72</small><br>Hf</button></td>
+				<td><button class="element" value="Ta"><small>73</small><br>Ta</button></td>
+				<td><button class="element" value="W"><small>74</small><br>W</button></td>
+				<td><button class="element" value="Re"><small>75</small><br>Re</button></td>
+				<td><button class="element" value="Os"><small>76</small><br>Os</button></td>
+				<td><button class="element" value="Ir"><small>77</small><br>Ir</button></td>
+				<td><button class="element" value="Pt"><small>78</small><br>Pt</button></td>
+				<td><button class="element" value="Au"><small>79</small><br>Au</button></td>
+				<td><button class="element" value="Hg"><small>80</small><br>Hg</button></td>
+				<td><button class="element" value="Tl"><small>81</small><br>Tl</button></td>
+				<td><button class="element" value="Pb"><small>82</small><br>Pb</button></td>
+				<td><button class="element" value="Bi"><small>83</small><br>Bi</button></td>
+				<td><button class="element" value="Po"><small>84</small><br>Po</button></td>
+				<td><button class="element" value="At"><small>85</small><br>At</button></td>
+				<td><button class="element" value="Rn"><small>86</small><br>Rn</button></td>
+			</tr>
+			<tr align="center">
+				<td><button class="element" value="Fr"><small>87</small><br>Fr</button></td>
+				<td><button class="element" value="Ra"><small>88</small><br>Ra</button></td>
+				<td><button class="element" value="Ac"><small>89</small><br>Ac</button></td>
+				<td><button class="element" value="Th"><small>90</small><br>Th</button></td>
+				<td><button class="element" value="Pa"><small>91</small><br>Pa</button></td>
+				<td><button class="element" value="U"><small>92</small><br>U</button></td>
+				<td><button class="element" value="Np"><small>93</small><br>Np</button></td>
+				<td><button class="element" value="Pu"><small>94</small><br>Pu</button></td>
+				<td><button class="element" value="Am"><small>95</small><br>Am</button></td>
+				<td><button class="element" value="Cm"><small>96</small><br>Cm</button></td>
+				<td><button class="element" value="Bk"><small>97</small><br>Bk</button></td>
+				<td><button class="element" value="Cf"><small>98</small><br>Cf</button></td>
+				<td><button class="element" value="Es"><small>99</small><br>Es</button></td>
+				<td><button class="element" value="Fm"><small>100</small><br>Fm</button></td>
+				<td><button class="element" value="Md"><small>101</small><br>Md</button></td>
+				<td><button class="element" value="No"><small>102</small><br>No</button></td>
+				<td><button class="element" value="Lr"><small>103</small><br>Lr</button></td>
+				<td><button class="element" value="Rf"><small>104</small><br>Rf</button></td>
+				<td><button class="element" value="Db"><small>105</small><br>Db</button></td>
+				<td><button class="element" value="Sg"><small>106</small><br>Sg</button></td>
+				<td><button class="element" value="Bh"><small>107</small><br>Bh</button></td>
+				<td><button class="element" value="Hs"><small>108</small><br>Hs</button></td>
+				<td><button class="element" value="Mt"><small>109</small><br>Mt</button></td>
+				<td><button class="element" value="Ds"><small>110</small><br>Ds</button></td>
+				<td><button class="element" value="Rg"><small>111</small><br>Rg</button></td>
+				<td><button class="element" value="Cp"><small>112</small><br>Cp</button></td>
+				<td><button class="element" value="Uut"><small>113</small><br>Uut</button></td>
+				<td><button class="element" value="Fl"><small>114</small><br>Fl</button></td>
+				<td><button class="element" value="Uup"><small>115</small><br>Uup</button></td>
+				<td><button class="element" value="Lv"><small>116</small><br>Lv</button></td>
+				<td><button class="element" value="Uus"><small>117</small><br>Uus</button></td>
+				<td><button class="element" value="Uuo"><small>118</small><br>Uuo</button></td>
+			</tr>
+		</table>
+		<script src="./chemparse.js"></script>
+		<script src="./molcalc.js"></script>
+		<script src="./elements.jsonp"></script>
+	</body>
+
+</html>
