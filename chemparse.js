@@ -6,18 +6,16 @@ var chem = {};
 
 /**
  * Custom exception for messages to the user.
- * @param {string} message Error message.
+ * @param {string} message.
  * @constructor
  */
 chem.UserException = function (message) {
   /**
-   * Error message.
    * @type {string}
    * @public
    */
   this.message = message;
   /**
-   * Error name.
    * @type {string}
    * @public
    */
@@ -25,7 +23,6 @@ chem.UserException = function (message) {
 }
 
 /**
- * toString method for UserException
  * @return {string}
  * @public
  */
@@ -46,21 +43,18 @@ chem.TokenType = {
 
 /**
  * string token class, used by the tokenizer and parser
- * @param {chem.TokenType} type  Used by parser to classify types of strings.
- * @param {string|number}  value Specifies either number, or string, depending
- *     on token type.
+ * @param {chem.TokenType} type
+ * @param {string|number}  value
  * @constructor
  * @struct
  */
 chem.Token = function(type, value) {
   /**
-   * Used by parser to classify types of strings.
    * @type {chem.TokenType}
    * @public
    */
   this.type = type;
   /**
-   * value Specifies either number, or string, depending on token type.
    * @type {string|number}
    * @public
    */
@@ -68,7 +62,6 @@ chem.Token = function(type, value) {
 };
 
 /**
- * toString method for tokens
  * @return {string}
  * @public
  */
@@ -81,7 +74,7 @@ chem.Token.prototype.toString = function() {
  * or entire subcompounds of class chem.Compound
  * @param {string|Object} chemical Chemical symbol, or chem.Compound object 
  *     for submolecules
- * @param {number}        value    Number of molecules described
+ * @param {number}        value
  * @constructor
  * @struct
  */
@@ -104,21 +97,19 @@ chem.Chemical = function(chemical, value) {
 /**
  * Describes compound chemicals, composed of chem.Chemical objects with a 
  * coefficiant multiplier
- * @param {number}         coefficiant Number of molecules of a given compound.
- * @param {Array.<Object>} chemicals   List of chemicals described.
+ * @param {number}         coefficiant
+ * @param {Array.<Object>} chemicals
  * @constructor
  * @struct
  */
 chem.Compound = function(coefficiant, chemicals) {
   /**
-   * Number of molecules of a given compound.
    * @type {number}
    * @public
    */
   this.coefficiant = coefficiant;
   
   /**
-   * List of chemicals described.
    * @type {Array.<Object>}
    * @public
    */
@@ -127,9 +118,8 @@ chem.Compound = function(coefficiant, chemicals) {
 
 /** 
  * Takes string and lexes it into tokens
- * 
- * @param {string} str String to tokenize
- * @return {Array.<Object>} list of tokens
+ * @param {string} str
+ * @return {Array.<Object>}
 */
 chem.tokenize = function (str) {
   if(!str) {
@@ -203,7 +193,7 @@ chem.tokenize = function (str) {
 
 /**
  * Parse tokens into a chem.Chemical object
- * @param {Array.<Object>} tokens List of tokens to parse.
+ * @param {Array.<Object>} tokens
  * @param {number}         idx    starting index, used for recursion.
  * @return {Object.<string, (Object|number)>}
  */
@@ -213,26 +203,22 @@ chem.parse = function (tokens, idx) {
   }
   
   var compound = new chem.Compound(1,[]);
-  // if idx is unspecified, assume 0.
   if(!idx) {
     idx = 0;
   }
   
-  // loop through tokens
   var l = tokens.length;
   for(var i = idx; i < l; i++) {
   
     if(i == 0 && tokens[i].type == chem.TokenType.NUMBER) { 
         // if '$[num]'
       
-      // assign number as coefficiant
       compound.coefficiant = tokens[i].value;
       
     } else if(tokens[i].type == chem.TokenType.NAME && 
           tokens[i+1] != null && tokens[i+1].type == chem.TokenType.NUMBER) {
           // if '[name][num]'
       
-      // add element with symbol and number
       compound.chemicals.push(
           new chem.Chemical(tokens[i].value,tokens[i+1].value));
       
@@ -241,7 +227,6 @@ chem.parse = function (tokens, idx) {
     } else if(tokens[i].type == chem.TokenType.NAME) {
         // if '[name]'
       
-      // add element with symbol, and the implied number of 1
       compound.chemicals.push(
           new chem.Chemical(tokens[i].value,1));
       
@@ -251,7 +236,6 @@ chem.parse = function (tokens, idx) {
       // recursively parse values within parenthesis
       var c = chem.parse(tokens, i+1);
       
-      // add entire object as single chem element
       compound.chemicals.push(
           new chem.Chemical(c['chemical'], c['value']));
       
@@ -260,19 +244,17 @@ chem.parse = function (tokens, idx) {
         throw new chem.UserException('Missing closing parenthesis');
       }
       
-      // skip to the end of parenthesis
       i = c['idx'];
     } else if(tokens[i].type == chem.TokenType.CPAREN) {
         // if ')'
         
-      // if idx hasn't been passed, meaning function hasn't recursed
+      // idx is 0 or null if funcition hasn't recursed
       if(!idx) {
         throw new chem.UserException('Missing opening parenthisis');
       }
       var value = 1, 
           inc = 1;
       
-      // if parenthesis followed by number, save number and skip accordingly
       if(tokens[i+1] != null && tokens[i+1].type == chem.TokenType.NUMBER) { 
         value = tokens[i+1].value;
         inc = 2;
@@ -280,7 +262,6 @@ chem.parse = function (tokens, idx) {
       
       return {'chemical': compound, 'value': value, 'idx': i+inc};
     } else {
-      // no correct patterns found, must be error.
       throw new chem.UserException('Syntax error');
     }
   }
@@ -290,16 +271,14 @@ chem.parse = function (tokens, idx) {
 
 /**
  * Mathematically evaluate chemical data from chem.Compound object.
- * @param {Object} compound Object for compound being evaluated.
- * @param {Object.<string,number>} massDict Molar mass dict for every chemical.
+ * @param {Object} compound
+ * @param {Object.<string,number>} massDict
  * @return {Object.<string, (Object|number)>}
  */
 chem.evaluate = function (compound, massDict) {
-  // ensure chem exists, and has data
   if(compound == null || compound.chemicals == null) {
     throw new UserException('Invalid compound input');
   }
-  // check for a molar mass list
   if(massDict == null) {
     throw new chem.UserException('invalid element list input');
   }
@@ -319,7 +298,7 @@ chem.evaluate = function (compound, massDict) {
     // if chem is a symbol
     if(typeof c.chemical == 'string') {
       var symbol = c.chemical.toLowerCase();
-      // add to total, and concat to equation string. symbol not case sensitive
+      // symbol not case sensitive
       if(!(symbol in massDict)) {
         throw new chem.UserException("Chemical symbol not recognized");
       }
@@ -327,33 +306,26 @@ chem.evaluate = function (compound, massDict) {
       total += massDict[symbol] * compound.coefficiant * c.value;
       
       equation += massDict[symbol];
-      // add number, only if not the emplied 1
       if(c.value != 1) {
         equation += ' * ' + c.value;
       }
     } else if(typeof c.chemical == 'object') {
       // recursively calculate subcompound.
-      
-      //add to total, and concatenate to equation string
       var subcompound = chem.evaluate(c.chemical, masslist);
       total += subcompound['value'] * compound.coefficiant * c.value;
       
       equation += '(' + subcompound['equation'] + ')';
-      // add number, only if not the emplied 1
       if(c['num'] != 1) {
         equation += ' * ' + c['num'];
       }
     } else {
-      // Invalid input of some sort
       throw new chem.UserException('Invalid chem input');
     }
   }
-  // add coefficiant calculation to string, so long as it isn't the implied 1
   if(compound.coefficiant != 1) {
     equation = compound.coefficiant + ' * (' + equation + ')';
   }
-  // if value is nothing, set eqstr to 0
-  if(equation == '') {
+  if(!equation) {
     equation = '0';
   }
   return {'value': total, 'equation': equation};
@@ -366,18 +338,15 @@ chem.evaluate = function (compound, massDict) {
  * @return 
  */
 chem.strEval = function (str, massDict) {
-  // ensure string exists
   if(str == null) {
     throw new chem.UserException('Invalid string input');
   }
-  // check for a molar mass list
   if(massDict == null) {
     throw new chem.UserException('invalid element list input');
   }
   var token = chem.tokenize(str);
   var compound = chem.parse(token);
   
-  // ensure chem parsed correctly
   if(compound == null) {
     throw new chem.UserException('no chemicals parsed');
   }
