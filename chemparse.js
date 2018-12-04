@@ -311,7 +311,7 @@ chem.evaluate = function (compound, massDict) {
       }
     } else if(typeof c.chemical == 'object') {
       // recursively calculate subcompound.
-      var subcompound = chem.evaluate(c.chemical, masslist);
+      var subcompound = chem.evaluate(c.chemical, massDict);
       total += subcompound['value'] * compound.coefficiant * c.value;
       
       equation += '(' + subcompound['equation'] + ')';
